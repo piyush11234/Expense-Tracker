@@ -20,7 +20,7 @@ function App() {
   const fetchExpenses = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:8080/api/expense/view");
+      const res = await axios.get("https://vercel-backend-one-sepia.vercel.app/api/expense/view");
       setExpenses(res.data.data || []);
     } catch (err) {
       console.error("Error fetching expenses:", err);
@@ -39,7 +39,7 @@ function App() {
 
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/expense/insert",
+        "https://vercel-backend-one-sepia.vercel.app/api/expense/insert",
         formData
       );
       if (res.status === 200) {
