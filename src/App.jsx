@@ -64,7 +64,7 @@ function App() {
   const deleteExpense = async (id) => {
     if (!window.confirm("Are you sure you want to delete this expense?")) return;
     try {
-      await axios.delete(`http://localhost:8080/api/expense/delete/${id}`);
+      await axios.delete(`https://vercel-backend-one-sepia.vercel.app/api/expense/delete/${id}`);
       toast.success("Expense deleted successfully");
       fetchExpenses();
     } catch (err) {
