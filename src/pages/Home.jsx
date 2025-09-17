@@ -151,7 +151,7 @@ function Home() {
               <label className="text-white font-semibold">Category</label>
               <select
                 name="category"
-                className="mt-2 border border-white/30 rounded-lg p-3 w-full bg-white/10 text-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                className="mt-2 border border-white/30 rounded-lg p-3 w-full bg-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                 onChange={handleChange}
                 value={formData.category}
               >
