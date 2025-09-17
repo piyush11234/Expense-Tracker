@@ -25,7 +25,7 @@ const Navbar = () => {
         {isLoggedIn ? (
           <>
             <Link
-              to="/dashboard"
+              to="/"
               className="text-white hover:text-yellow-300 transition"
             >
               Dashboard
