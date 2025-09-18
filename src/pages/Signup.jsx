@@ -69,7 +69,7 @@ const Signup = () => {
           onChange={handleChange}
           className="p-2 rounded bg-white/20 text-white placeholder-gray-200 focus:outline-none"
         />
-        <button className="bg-green-500 text-white p-2 rounded hover:bg-green-600 transition">
+        <button className="cursor-pointer bg-green-500 text-white p-2 rounded hover:bg-green-600 transition">
           Signup
         </button>
         <p className="text-white text-sm text-center">
