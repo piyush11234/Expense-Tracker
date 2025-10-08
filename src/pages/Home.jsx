@@ -162,261 +162,25 @@ function Home() {
         toastClassName="rounded-xl shadow-lg"
       />
       
-      {/* Header */}
+      {/* Header - Keep your existing header code here */}
       <header className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                💰 Expense Tracker
-              </h1>
-            </div>
-            
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-8">
-              <button 
-                onClick={() => filterExpenses({ period: "day" })}
-                className={`px-4 py-2 rounded-lg transition-all duration-200 ${
-                  activeFilter === "day" 
-                    ? "bg-blue-100 text-blue-700 border border-blue-200" 
-                    : "text-slate-600 hover:bg-slate-100"
-                }`}
-              >
-                📅 Today
-              </button>
-              <button 
-                onClick={() => filterExpenses({ period: "week" })}
-                className={`px-4 py-2 rounded-lg transition-all duration-200 ${
-                  activeFilter === "week" 
-                    ? "bg-blue-100 text-blue-700 border border-blue-200" 
-                    : "text-slate-600 hover:bg-slate-100"
-                }`}
-              >
-                📆 Week
-              </button>
-              <button 
-                onClick={() => filterExpenses({ period: "month" })}
-                className={`px-4 py-2 rounded-lg transition-all duration-200 ${
-                  activeFilter === "month" 
-                    ? "bg-blue-100 text-blue-700 border border-blue-200" 
-                    : "text-slate-600 hover:bg-slate-100"
-                }`}
-              >
-                🗓️ Month
-              </button>
-              <button 
-                onClick={() => { fetchExpenses(); setActiveFilter("all"); }}
-                className={`px-4 py-2 rounded-lg transition-all duration-200 ${
-                  activeFilter === "all" 
-                    ? "bg-blue-100 text-blue-700 border border-blue-200" 
-                    : "text-slate-600 hover:bg-slate-100"
-                }`}
-              >
-                🔄 All
-              </button>
-            </nav>
-
-            {/* Mobile menu button */}
-            <button 
-              className="md:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              <span className="text-2xl">☰</span>
-            </button>
-          </div>
-
-          {/* Mobile Navigation */}
-          {mobileMenuOpen && (
-            <div className="md:hidden py-4 border-t border-slate-200">
-              <div className="flex flex-wrap gap-2">
-                <button 
-                  onClick={() => { filterExpenses({ period: "day" }); setMobileMenuOpen(false); }}
-                  className={`px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
-                    activeFilter === "day" 
-                      ? "bg-blue-100 text-blue-700 border border-blue-200" 
-                      : "text-slate-600 hover:bg-slate-100"
-                  }`}
-                >
-                  📅 Today
-                </button>
-                <button 
-                  onClick={() => { filterExpenses({ period: "week" }); setMobileMenuOpen(false); }}
-                  className={`px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
-                    activeFilter === "week" 
-                      ? "bg-blue-100 text-blue-700 border border-blue-200" 
-                      : "text-slate-600 hover:bg-slate-100"
-                  }`}
-                >
-                  📆 Week
-                </button>
-                <button 
-                  onClick={() => { filterExpenses({ period: "month" }); setMobileMenuOpen(false); }}
-                  className={`px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
-                    activeFilter === "month" 
-                      ? "bg-blue-100 text-blue-700 border border-blue-200" 
-                      : "text-slate-600 hover:bg-slate-100"
-                  }`}
-                >
-                  🗓️ Month
-                </button>
-                <button 
-                  onClick={() => { fetchExpenses(); setActiveFilter("all"); setMobileMenuOpen(false); }}
-                  className={`px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
-                    activeFilter === "all" 
-                      ? "bg-blue-100 text-blue-700 border border-blue-200" 
-                      : "text-slate-600 hover:bg-slate-100"
-                  }`}
-                >
-                  🔄 All
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
+        {/* Your existing header code */}
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Summary Cards */}
+        {/* Summary Cards - Keep your existing summary cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl p-6 text-white shadow-lg transform hover:scale-105 transition-transform duration-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-red-100 text-sm font-medium">Total Spent</p>
-                <p className="text-3xl font-bold mt-2">₹{summary.totalSpent.toLocaleString()}</p>
-              </div>
-              <div className="text-3xl">💸</div>
-            </div>
-          </div>
-          
-          <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl p-6 text-white shadow-lg transform hover:scale-105 transition-transform duration-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-green-100 text-sm font-medium">Total Received</p>
-                <p className="text-3xl font-bold mt-2">₹{summary.totalReceived.toLocaleString()}</p>
-              </div>
-              <div className="text-3xl">💰</div>
-            </div>
-          </div>
-          
-          <div className={`rounded-2xl p-6 text-white shadow-lg transform hover:scale-105 transition-transform duration-200 ${
-            summary.balance >= 0 
-              ? "bg-gradient-to-br from-blue-500 to-cyan-600" 
-              : "bg-gradient-to-br from-orange-500 to-red-600"
-          }`}>
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-blue-100 text-sm font-medium">Balance</p>
-                <p className="text-3xl font-bold mt-2">₹{summary.balance.toLocaleString()}</p>
-              </div>
-              <div className="text-3xl">{summary.balance >= 0 ? "📈" : "📉"}</div>
-            </div>
-          </div>
+          {/* Your existing summary cards code */}
         </div>
 
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-          {/* Add Expense Form */}
+          {/* Add Expense Form - Keep your existing form */}
           <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
-            <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center">
-              <span className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white mr-3">+</span>
-              Add New Transaction
-            </h2>
-            
-            <form onSubmit={addExpense} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Amount ₹</label>
-                  <input
-                    type="number"
-                    name="amount"
-                    placeholder="0.00"
-                    value={formData.amount}
-                    onChange={handleChange}
-                    className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                    required
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Category</label>
-                  <select
-                    name="category"
-                    value={formData.category}
-                    onChange={handleChange}
-                    className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white"
-                    required
-                  >
-                    <option value="">Select a category</option>
-                    {categories.map((category) => (
-                      <option key={category.value} value={category.value}>
-                        {category.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Description</label>
-                <input
-                  type="text"
-                  name="description"
-                  placeholder="Optional description..."
-                  value={formData.description}
-                  onChange={handleChange}
-                  className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Type</label>
-                  <select
-                    name="type"
-                    value={formData.type}
-                    onChange={handleChange}
-                    className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white"
-                  >
-                    <option value="spent">💸 Spent</option>
-                    <option value="received">💰 Received</option>
-                  </select>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Group</label>
-                  <input
-                    type="text"
-                    name="group"
-                    placeholder="Personal, Family, etc."
-                    value={formData.group}
-                    onChange={handleChange}
-                    className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Date</label>
-                <input
-                  type="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleChange}
-                  className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                  required
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg"
-              >
-                💾 Add Transaction
-              </button>
-            </form>
+            {/* Your existing form code */}
           </div>
 
-          {/* Expense List */}
+          {/* Enhanced Expense List */}
           <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold text-slate-800 flex items-center">
@@ -440,50 +204,98 @@ function Home() {
                 <p className="text-slate-400">Add your first transaction to get started!</p>
               </div>
             ) : (
-              <div className="space-y-3 max-h-[500px] overflow-y-auto pr-2">
-                {filteredExpenses.map((exp) => (
-                  <div
-                    key={exp._id}
-                    className="bg-slate-50 rounded-xl p-4 border border-slate-200 hover:border-slate-300 transition-all duration-200 group"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-4">
-                        <div className={`w-12 h-12 rounded-lg flex items-center justify-center text-white ${getCategoryColor(exp.category)}`}>
-                          {exp.type === "spent" ? "💸" : "💰"}
-                        </div>
-                        <div>
-                          <div className="flex items-center space-x-2">
-                            <span className="font-semibold text-slate-800 capitalize">
-                              {exp.category}
+              <div className="space-y-3 max-h-[500px] overflow-y-auto">
+                {/* Mobile Card View */}
+                <div className="block md:hidden space-y-3">
+                  {filteredExpenses.map((exp) => (
+                    <div
+                      key={exp._id}
+                      className="bg-slate-50 rounded-xl p-4 border border-slate-200 hover:border-slate-300 transition-all duration-200"
+                    >
+                      {/* Top Row - Amount and Actions */}
+                      <div className="flex justify-between items-start mb-3">
+                        <div className="flex items-center space-x-3">
+                          <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white ${getCategoryColor(exp.category)}`}>
+                            {exp.type === "spent" ? "💸" : "💰"}
+                          </div>
+                          <div>
+                            <span className={`text-lg font-bold ${exp.type === "spent" ? "text-red-600" : "text-green-600"}`}>
+                              {exp.type === "spent" ? "-" : "+"}₹{exp.amount}
                             </span>
-                            {exp.description && (
-                              <span className="text-slate-500 text-sm">• {exp.description}</span>
-                            )}
-                          </div>
-                          <div className="flex items-center space-x-4 text-sm text-slate-500 mt-1">
-                            <span>👥 {exp.group}</span>
-                            <span>📅 {exp.date?.split("T")[0]}</span>
+                            <p className="text-slate-600 text-sm capitalize">{exp.category}</p>
                           </div>
                         </div>
-                      </div>
-                      
-                      <div className="flex items-center space-x-3">
-                        <span className={`text-lg font-bold ${
-                          exp.type === "spent" ? "text-red-600" : "text-green-600"
-                        }`}>
-                          {exp.type === "spent" ? "-" : "+"}₹{exp.amount}
-                        </span>
                         <button
                           onClick={() => deleteExpense(exp._id)}
-                          className="opacity-0 group-hover:opacity-100 p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
+                          className="text-red-400 hover:text-red-600 transition-colors p-1"
                           title="Delete"
                         >
                           🗑️
                         </button>
                       </div>
+                      
+                      {/* Bottom Row - Details */}
+                      <div className="flex justify-between items-center text-sm text-slate-500">
+                        <div className="flex flex-col space-y-1">
+                          {exp.description && (
+                            <span className="text-slate-600">📝 {exp.description}</span>
+                          )}
+                          <span>👥 {exp.group}</span>
+                        </div>
+                        <span>📅 {exp.date?.split("T")[0]}</span>
+                      </div>
                     </div>
+                  ))}
+                </div>
+
+                {/* Desktop Table View */}
+                <div className="hidden md:block">
+                  <div className="grid grid-cols-1 gap-3">
+                    {filteredExpenses.map((exp) => (
+                      <div
+                        key={exp._id}
+                        className="bg-slate-50 rounded-xl p-4 border border-slate-200 hover:border-slate-300 transition-all duration-200 group"
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-4">
+                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center text-white ${getCategoryColor(exp.category)}`}>
+                              {exp.type === "spent" ? "💸" : "💰"}
+                            </div>
+                            <div>
+                              <div className="flex items-center space-x-2">
+                                <span className="font-semibold text-slate-800 capitalize">
+                                  {exp.category}
+                                </span>
+                                {exp.description && (
+                                  <span className="text-slate-500 text-sm">• {exp.description}</span>
+                                )}
+                              </div>
+                              <div className="flex items-center space-x-4 text-sm text-slate-500 mt-1">
+                                <span>👥 {exp.group}</span>
+                                <span>📅 {exp.date?.split("T")[0]}</span>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center space-x-3">
+                            <span className={`text-lg font-bold ${
+                              exp.type === "spent" ? "text-red-600" : "text-green-600"
+                            }`}>
+                              {exp.type === "spent" ? "-" : "+"}₹{exp.amount}
+                            </span>
+                            <button
+                              onClick={() => deleteExpense(exp._id)}
+                              className="opacity-0 group-hover:opacity-100 p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
+                              title="Delete"
+                            >
+                              🗑️
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
               </div>
             )}
           </div>
