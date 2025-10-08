@@ -227,7 +227,6 @@
 
 
 
-
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -268,8 +267,9 @@ function Home() {
         "https://vercel-backend-one-sepia.vercel.app/api/expense/view",
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setExpenses(res.data.data || []);
-      calculateSummary(res.data.data || []);
+      const data = res.data.data || [];
+      setExpenses(data);
+      calculateSummary(data);
     } catch (err) {
       toast.error("Failed to fetch expenses");
       console.error(err);
@@ -280,8 +280,8 @@ function Home() {
 
   // Calculate summary
   const calculateSummary = (data) => {
-    const totalSpent = data.filter(e => e.type === "spent").reduce((sum, e) => sum + e.amount, 0);
-    const totalReceived = data.filter(e => e.type === "received").reduce((sum, e) => sum + e.amount, 0);
+    const totalSpent = data.filter(e => e.type === "spent").reduce((sum, e) => sum + Number(e.amount), 0);
+    const totalReceived = data.filter(e => e.type === "received").reduce((sum, e) => sum + Number(e.amount), 0);
     setSummary({ totalSpent, totalReceived, balance: totalReceived - totalSpent });
   };
 
@@ -348,8 +348,9 @@ function Home() {
         `https://vercel-backend-one-sepia.vercel.app/api/expense/filter?${query}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setExpenses(res.data.data || []);
-      setSummary(res.data.summary);
+      const data = res.data.data || [];
+      setExpenses(data);
+      calculateSummary(data);
     } catch (err) {
       toast.error("Failed to apply filter");
     } finally {
@@ -473,31 +474,40 @@ function Home() {
                   <th className="px-3 py-2 border border-white/20">Category</th>
                   <th className="px-3 py-2 border border-white/20">Group</th>
                   <th className="px-3 py-2 border border-white/20">Date</th>
+                  <th className="px-3 py-2 border border-white/20">Description</th>
                   <th className="px-3 py-2 border border-white/20">Action</th>
                 </tr>
               </thead>
               <tbody>
-                {expenses.map((exp) => (
-                  <tr key={exp._id} className="hover:bg-white/10 transition">
-                    <td className="text-center">{exp.type === "spent" ? "💸" : "💰"}</td>
-                    <td
-                      className={`px-3 py-2 text-center border border-white/20 font-semibold ${
-                        exp.type === "spent" ? "text-red-300" : "text-green-300"
+                {[...expenses]
+                  .sort((a, b) => new Date(b.date) - new Date(a.date)) // newest first
+                  .map((exp) => (
+                    <tr
+                      key={exp._id}
+                      className={`hover:bg-white/10 transition duration-200 ${
+                        exp.type === "spent" ? "bg-red-900/20" : "bg-green-900/20"
                       }`}
                     >
-                      ₹{exp.amount}
-                    </td>
-                    <td className="text-center capitalize border border-white/20">{exp.category}</td>
-                    <td className="text-center border border-white/20">{exp.group}</td>
-                    <td className="text-center border border-white/20">{exp.date?.split("T")[0]}</td>
-                    <td
-                      className="text-red-400 px-3 py-2 text-center border border-white/20 cursor-pointer hover:text-red-600"
-                      onClick={() => deleteExpense(exp._id)}
-                    >
-                      🗑️
-                    </td>
-                  </tr>
-                ))}
+                      <td className="text-center px-3 py-2 border border-white/20 font-bold">
+                        {exp.type === "spent" ? "💸 Spent" : "💰 Received"}
+                      </td>
+                      <td className="px-3 py-2 text-center border border-white/20 font-semibold">
+                        ₹{exp.amount}
+                      </td>
+                      <td className="text-center capitalize border border-white/20">{exp.category}</td>
+                      <td className="text-center border border-white/20">{exp.group}</td>
+                      <td className="text-center border border-white/20">{exp.date?.split("T")[0]}</td>
+                      <td className="text-center border border-white/20 italic text-gray-200">
+                        {exp.description || "—"}
+                      </td>
+                      <td
+                        className="text-red-400 px-3 py-2 text-center border border-white/20 cursor-pointer hover:text-red-600"
+                        onClick={() => deleteExpense(exp._id)}
+                      >
+                        🗑️
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           )}
